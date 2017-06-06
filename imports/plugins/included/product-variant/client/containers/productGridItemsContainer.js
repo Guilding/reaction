@@ -10,6 +10,8 @@ import ProductGridItems from "../components/productGridItems";
 
 class ProductGridItemsContainer extends Component {
   static propTypes = {
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
     itemSelectHandler: PropTypes.func,
     product: PropTypes.object
   }
@@ -107,7 +109,6 @@ class ProductGridItemsContainer extends Component {
   }
 
   render() {
-    console.log({ props: this.props });
     return (
       this.props.connectDropTarget(
         <div style={{ display: "inherit" }}>
@@ -131,10 +132,10 @@ class ProductGridItemsContainer extends Component {
   }
 }
 
-// function composer(props, onData) {
-//   onData(null, {});
-// }
+function composer(props, onData) {
+  onData(null, {});
+}
 
-// const container = composeWithTracker(composer)(ProductGridItemsContainer);
-export default SortableItem("productGridItem", ProductGridItemsContainer);
+const container = composeWithTracker(composer)(ProductGridItemsContainer);
+export default SortableItem("productGridItem", container);
 
