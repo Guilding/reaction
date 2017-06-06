@@ -13,7 +13,7 @@ class ProductGrid extends Component {
         return (
           <ProductGridItemsContainer
             {...this.props}
-            product={product} key={index}
+            product={product} key={index} index={index}
           />
         );
       });
