@@ -5,6 +5,7 @@ import { composeWithTracker } from "/lib/api/compose";
 import { Reaction } from "/client/api";
 import { ReactionProduct } from "/lib/api";
 import { Media } from "/lib/collections";
+import { SortableItem } from "/imports/plugins/core/ui/client/containers";
 import ProductGridItems from "../components/productGridItems";
 
 class ProductGridItemsContainer extends Component {
@@ -106,25 +107,34 @@ class ProductGridItemsContainer extends Component {
   }
 
   render() {
+    console.log({ props: this.props });
     return (
-      <ProductGridItems
-        product={this.props.product}
-        pdpPath={this.productPath}
-        positions={this.positions}
-        weightClass={this.weightClass}
-        isSelected={this.isSelected}
-        media={this.productMedia}
-        additionalMedia={this.additionalProductMedia}
-        isMediumWeight={this.isMediumWeight}
-        displayPrice={this.displayPrice}
-        itemSelectHandler={this.props.itemSelectHandler}
-      />
+      this.props.connectDropTarget(
+        <div style={{ display: "inherit" }}>
+          <ProductGridItems
+            product={this.props.product}
+            connectDragSource={this.props.connectDragSource}
+            pdpPath={this.productPath}
+            positions={this.positions}
+            weightClass={this.weightClass}
+            isSelected={this.isSelected}
+            media={this.productMedia}
+            additionalMedia={this.additionalProductMedia}
+            isMediumWeight={this.isMediumWeight}
+            displayPrice={this.displayPrice}
+            itemSelectHandler={this.props.itemSelectHandler}
+            {...this.props}
+          />
+        </div>
+      )
     );
   }
 }
 
-function composer(props, onData) {
-  onData(null, {});
-}
+// function composer(props, onData) {
+//   onData(null, {});
+// }
 
-export default composeWithTracker(composer)(ProductGridItemsContainer);
+// const container = composeWithTracker(composer)(ProductGridItemsContainer);
+export default SortableItem("productGridItem", ProductGridItemsContainer);
+

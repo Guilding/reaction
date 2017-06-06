@@ -48,10 +48,6 @@ class ProductGridContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    // sortable item init
-  }
-
   handleSelectProductItem = (event) => {
     let selectedProducts = Session.get("productGrid/selectedProducts");
 
@@ -85,10 +81,15 @@ class ProductGridContainer extends Component {
     }
   }
 
+  // onMove = () => {
+  //   console.log('ssssss');
+  // }
+
   render() {
     return (
       <ProductGrid
         products={this.state.products}
+        onMove={this.onMove}
         itemSelectHandler={this.handleSelectProductItem}
       />
     );
